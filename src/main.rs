@@ -1,6 +1,9 @@
 use amethyst::{
-    core::transform::TransformBundle,
     prelude::*,
+    LoggerConfig,
+    LogLevelFilter,
+    StdoutLog,
+    core::transform::TransformBundle,
     renderer::{
         plugins::{RenderFlat2D, RenderToWindow},
         types::DefaultBackend,
@@ -9,32 +12,38 @@ use amethyst::{
     utils::application_root_dir,
 };
 
-struct MyState;
+mod platformer;
 
-impl SimpleState for MyState {
-    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {}
-}
+use platformer::Platformer;
 
 fn main() -> amethyst::Result<()> {
-    amethyst::start_logger(Default::default());
+    amethyst::start_logger(LoggerConfig {
+        allow_env_override: false,
+        level_filter: LogLevelFilter::Debug,
+        log_file: None,
+        log_gfx_backend_level: None,
+        log_gfx_rendy_level: None,
+        module_levels: Vec::default(),
+        stdout: StdoutLog::Colored,
+    });
 
     let app_root = application_root_dir()?;
-
-    let config_dir = app_root.join("config");
-    let display_config_path = config_dir.join("display.ron");
+    let display_config_path = app_root.join("config").join("display.ron");
 
     let game_data = GameDataBuilder::default()
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(
                     RenderToWindow::from_config_path(display_config_path)?
-                        .with_clear([0.34, 0.36, 0.52, 1.0]),
+                        .with_clear([0.0, 0.0, 0.0, 1.0]),
                 )
                 .with_plugin(RenderFlat2D::default()),
-        )?
+        )? 
         .with_bundle(TransformBundle::new())?;
 
-    let mut game = Application::new("/", MyState, game_data)?;
+    let assets_dir = app_root.join("assets");
+    let _world = World::new();
+    let mut game = Application::new(assets_dir, Platformer, game_data)?;
     game.run();
 
     Ok(())
