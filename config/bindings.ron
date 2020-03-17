@@ -1,0 +1,8 @@
+(
+    axes: {
+        "horizontal_movement": Emulated(pos: Key(Right), neg: Key(Left)),
+    },
+    actions: {
+        "jump": [[Key(Up)]],
+    },
+)

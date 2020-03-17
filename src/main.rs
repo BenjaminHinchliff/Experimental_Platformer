@@ -10,10 +10,16 @@ use amethyst::{
         RenderingBundle,
     },
     utils::application_root_dir,
+    input::{
+        InputBundle,
+        StringBindings,
+    }
 };
 
 mod platformer;
+mod systems;
 
+use systems::{KeyEcho, Gravity};
 use platformer::Platformer;
 
 fn main() -> amethyst::Result<()> {
@@ -29,6 +35,10 @@ fn main() -> amethyst::Result<()> {
 
     let app_root = application_root_dir()?;
     let display_config_path = app_root.join("config").join("display.ron");
+    let binding_path = app_root.join("config").join("bindings.ron");
+
+    let input_bundle = InputBundle::<StringBindings>::new()
+        .with_bindings_from_file(binding_path)?;
 
     let game_data = GameDataBuilder::default()
         .with_bundle(
@@ -39,7 +49,11 @@ fn main() -> amethyst::Result<()> {
                 )
                 .with_plugin(RenderFlat2D::default()),
         )? 
-        .with_bundle(TransformBundle::new())?;
+        .with_bundle(TransformBundle::new())?
+        .with_bundle(input_bundle)?
+        .with(Gravity, "gravity", &[])
+        .with(KeyEcho, "key_echo", &[]);
+
 
     let assets_dir = app_root.join("assets");
     let _world = World::new();
