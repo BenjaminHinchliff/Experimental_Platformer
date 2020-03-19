@@ -52,10 +52,10 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
         .with(Gravity, "gravity", &[])
-        .with(Collision, "collision", &["gravity"])
+        .with(Scroll, "scroll", &[])
+        .with(Collision, "collision", &["gravity", "scroll"])
         .with(Jump, "jump", &["gravity", "collision"])
-        .with(MovePlayer, "move_player", &["gravity", "collision", "jump"])
-        .with(Scroll, "scroll", &[]);
+        .with(MovePlayer, "move_player", &["gravity", "collision", "jump"]);
 
 
     let assets_dir = app_root.join("assets");

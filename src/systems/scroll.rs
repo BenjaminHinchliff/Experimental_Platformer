@@ -5,7 +5,7 @@ use amethyst::{
     input::{InputHandler, StringBindings},
 };
 
-use crate::platformer::{Tile, MOVE_SPEED};
+use crate::platformer::{Ball, MOVE_SPEED};
 
 #[derive(SystemDesc)]
 pub struct Scroll;
@@ -13,14 +13,13 @@ pub struct Scroll;
 impl <'s> System<'s> for Scroll {
     type SystemData = (
         Read<'s, InputHandler<StringBindings>>,
-        ReadStorage<'s, Tile>,
-        WriteStorage<'s, Transform>,
+        WriteStorage<'s, Ball>
     );
 
-    fn run(&mut self, (input, tiles, mut transforms): Self::SystemData) {
+    fn run(&mut self, (input, mut balls): Self::SystemData) {
         if let Some(vel) = input.axis_value("horizontal_movement") {
-            for (_, transforms) in (&tiles, &mut transforms).join() {
-                transforms.prepend_translation_x(vel * -MOVE_SPEED);
+            for ball in (&mut balls).join() {
+                ball.xvel = vel * -MOVE_SPEED;
             }
         }
     }

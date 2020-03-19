@@ -42,10 +42,12 @@ impl <'s> System<'s> for Collision {
                 }
             }
         }
-        for (ent, _, ball_transform) in (&*entities, &balls, &mut transforms).join() {
+        for (ent, ball, ball_transform) in (&*entities, &mut balls, &mut transforms).join() {
             if let Some(amnt) = y_intersect_amount.get(&ent.id()) {
                 if amnt < &20.0 {
-                    ball_transform.prepend_translation_y(amnt - 1.0);
+                    ball_transform.prepend_translation_y(*amnt);
+                } else {
+                    ball.xvel = 0.0;
                 }
             }
         }
