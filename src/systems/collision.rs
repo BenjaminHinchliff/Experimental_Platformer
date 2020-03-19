@@ -46,7 +46,9 @@ impl <'s> System<'s> for Collision {
         }
         for (ent, _, ball_transform) in (&*entities, &balls, &mut transforms).join() {
             if let Some(amnt) = y_intersect_amount.get(&ent.id()) {
-                ball_transform.prepend_translation_y(amnt - 1.0);
+                if (amnt < &20.0) {
+                    ball_transform.prepend_translation_y(amnt - 1.0);
+                }
             }
         }
     }

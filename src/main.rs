@@ -19,7 +19,7 @@ use amethyst::{
 mod platformer;
 mod systems;
 
-use systems::{KeyEcho, Gravity, Collision, MovePlayer, Jump};
+use systems::{KeyEcho, Gravity, Collision, MovePlayer, Jump, Scroll};
 use platformer::Platformer;
 
 fn main() -> amethyst::Result<()> {
@@ -54,7 +54,8 @@ fn main() -> amethyst::Result<()> {
         .with(Gravity, "gravity", &[])
         .with(Collision, "collision", &["gravity"])
         .with(Jump, "jump", &["gravity", "collision"])
-        .with(MovePlayer, "move_player", &["gravity", "collision", "jump"]);
+        .with(MovePlayer, "move_player", &["gravity", "collision", "jump"])
+        .with(Scroll, "scroll", &[]);
 
 
     let assets_dir = app_root.join("assets");

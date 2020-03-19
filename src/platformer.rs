@@ -23,6 +23,7 @@ pub const LEVEL_TILE_HEIGHT: f32 = 32.0;
 
 pub const GRAVITY_ACCELERATION: f32 = -1.0;
 pub const JUMP_VELOCITY: f32 = 10.0;
+pub const MOVE_SPEED: f32 = 10.0;
 
 pub struct Platformer;
 
@@ -121,6 +122,7 @@ fn init_ball(world: &mut World, sprite_sheet: Handle<SpriteSheet>) {
 pub struct Tile {
     pub width: f32,
     pub height: f32,
+    pub scroll_amount: f32,
 }
 
 
@@ -129,6 +131,7 @@ impl Tile {
         Tile {
             width: LEVEL_TILE_WIDTH,
             height: LEVEL_TILE_HEIGHT,
+            scroll_amount: 0.0,
         }
     }
 }
