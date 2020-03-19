@@ -19,7 +19,7 @@ use amethyst::{
 mod platformer;
 mod systems;
 
-use systems::{KeyEcho, Gravity, Collision, MovePlayer, Jump, Scroll};
+use systems::{Gravity, Collision, MovePlayer, Jump, Scroll};
 use platformer::Platformer;
 
 fn main() -> amethyst::Result<()> {

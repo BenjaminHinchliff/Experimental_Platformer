@@ -1,8 +1,7 @@
 use amethyst::{
-    prelude::*,
-    core::{Transform, SystemDesc},
+    core::{Transform},
     derive::SystemDesc,
-    ecs::{Component, DenseVecStorage, Join, Read, ReadStorage, System, SystemData, World, WriteStorage},
+    ecs::{Join, Read, ReadStorage, System, SystemData, WriteStorage},
     input::{InputHandler, StringBindings},
 };
 
@@ -20,7 +19,7 @@ impl <'s> System<'s> for Scroll {
 
     fn run(&mut self, (input, tiles, mut transforms): Self::SystemData) {
         if let Some(vel) = input.axis_value("horizontal_movement") {
-            for (tile, transforms) in (&tiles, &mut transforms).join() {
+            for (_, transforms) in (&tiles, &mut transforms).join() {
                 transforms.prepend_translation_x(vel * -MOVE_SPEED);
             }
         }

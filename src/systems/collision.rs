@@ -1,11 +1,9 @@
 use std::collections::HashMap;
 
 use amethyst::{
-    prelude::*,
-    core::{Transform, SystemDesc},
+    core::{Transform},
     derive::SystemDesc,
-    ecs::{Component, DenseVecStorage, Join, Read, ReadStorage, System, SystemData, World, WriteStorage, Entities},
-    input::{InputHandler, StringBindings},
+    ecs::{Join, ReadStorage, System, SystemData, WriteStorage, Entities},
 };
 
 use crate::platformer::{Ball, Tile};
@@ -46,7 +44,7 @@ impl <'s> System<'s> for Collision {
         }
         for (ent, _, ball_transform) in (&*entities, &balls, &mut transforms).join() {
             if let Some(amnt) = y_intersect_amount.get(&ent.id()) {
-                if (amnt < &20.0) {
+                if amnt < &20.0 {
                     ball_transform.prepend_translation_y(amnt - 1.0);
                 }
             }

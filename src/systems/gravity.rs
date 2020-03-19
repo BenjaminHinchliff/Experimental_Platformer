@@ -1,9 +1,7 @@
 use amethyst::{
-    prelude::*,
-    core::{Transform, SystemDesc},
+    core::{Transform},
     derive::SystemDesc,
-    ecs::{Component, DenseVecStorage, Join, Read, ReadStorage, System, SystemData, World, WriteStorage},
-    input::{InputHandler, StringBindings},
+    ecs::{Join, ReadStorage, System, SystemData, WriteStorage},
 };
 
 use crate::platformer::{Ball, GRAVITY_ACCELERATION};
