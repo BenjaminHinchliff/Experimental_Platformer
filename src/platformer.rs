@@ -21,6 +21,9 @@ pub const BALL_HEIGHT: f32 = 32.0;
 pub const LEVEL_TILE_WIDTH: f32 = 32.0;
 pub const LEVEL_TILE_HEIGHT: f32 = 32.0;
 
+pub const GRAVITY_ACCELERATION: f32 = -1.0;
+pub const JUMP_VELOCITY: f32 = 10.0;
+
 pub struct Platformer;
 
 impl SimpleState for Platformer {
@@ -78,6 +81,7 @@ pub struct Ball {
     pub height: f32,
     pub xvel: f32,
     pub yvel: f32,
+    pub on_ground: bool,
 }
 
 impl Ball {
@@ -87,6 +91,7 @@ impl Ball {
             height: BALL_HEIGHT,
             xvel: 0.0,
             yvel: 0.0,
+            on_ground: false,
         }
     }
 }
