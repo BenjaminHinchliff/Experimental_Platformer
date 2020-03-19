@@ -1,7 +1,6 @@
 use amethyst::{
-    core::{Transform},
     derive::SystemDesc,
-    ecs::{Join, Read, ReadStorage, System, SystemData, WriteStorage},
+    ecs::{Join, Read, System, SystemData, WriteStorage},
     input::{InputHandler, StringBindings},
 };
 
